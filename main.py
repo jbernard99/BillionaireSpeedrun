@@ -1,8 +1,10 @@
-import pygame
 from save import *
+import pygame
 import sys
 
 pygame.init()
+from presets import *
+from assets.bar import *
 
 # set up the display
 WIDTH, HEIGHT = 1280, 720
@@ -13,7 +15,6 @@ pygame.display.set_caption("Billionaire Speedrun v0.2")
 clock = pygame.time.Clock()
 
 # set up the font
-print(pygame.font.get_fonts())
 font = pygame.font.SysFont("urwbookman", 22)
 
 # set up the score
@@ -29,12 +30,14 @@ while True:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:  # left mouse button
-                usdollars += 1.01
+                usdollars += 1
 
     # update the screen
-    screen.fill((255, 255, 255))  # white background
-    score_text = font.render(f"Wallet : {usdollars:.2f}$", True, (0, 0, 0))
-    screen.blit(score_text, (10, 10))
+    screen.fill(WHITE)  # white background
+    navbar = Bar(0, 0, 1280, 25, GREY)
+    navbar.draw(screen)
+    score_text = font.render(f"Wallet : {usdollars:.2f}$", True, WHITE)
+    screen.blit(score_text, navbar, area=(-10, -3, 1280, 25))
     pygame.display.update()
 
     # limit the frame rate
