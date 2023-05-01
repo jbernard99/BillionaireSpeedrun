@@ -6,30 +6,22 @@ pygame.init()
 from presets import *
 from assets.infobar import *
 
-# set up the display
 WIDTH, HEIGHT = 1280, 720
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Billionaire Speedrun v0.2")
-
-# set up the clock
 clock = pygame.time.Clock()
 
-# set up the font
-font = pygame.font.SysFont("urwbookman", 22)
-
-# set up the score
 usd, btc = load_data()
 
-# main game loop
 while True:
-	# handle events
+	#Events
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			save(usd, btc)
 			pygame.quit()
 			sys.exit()
 		elif event.type == pygame.MOUSEBUTTONDOWN:
-			if event.button == 1:  # left mouse button
+			if event.button == 1:
 				usd += 1
 
 	#Generate
