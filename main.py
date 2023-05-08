@@ -5,13 +5,17 @@ import sys
 pygame.init()
 from presets import *
 from assets.infobar import *
+from assets.button import *
 
 WIDTH, HEIGHT = 1280, 720
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Billionaire Speedrun v0.2")
 clock = pygame.time.Clock()
+print(pygame.font.get_fonts())
 
 usd, btc = load_data()
+info_bar = InfoBar(25, GREY, f"Wallet : {usd:.2f}$ | {btc:.4f} BTC", screen)
+usd_button = Button(5, 30, 130, 50, GREY, "Click me!", screen)
 
 while True:
 	#Events
@@ -25,15 +29,13 @@ while True:
 				usd += 1
 
 	#Generate
-	info_bar = InfoBar()
 	screen.fill(WHITE)
 
-	#Draw
-	info_bar.draw(screen)
-
 	#Update
-	info_bar.update(usd, btc)
+	info_bar.update(f"Wallet : {usd:.2f}$ | {btc:.4f} BTC")
+	if (usd_button.draw(event)):
+		usd += 1
 	pygame.display.update()
 
 	#Limit FPS
-	clock.tick(30)
+	clock.tick(60)
