@@ -1,20 +1,25 @@
 import json
 
-def save(usdollars, bitcoin, ebook):
+def save(save_tab):
 	file = open("save.json", "w")
-	data = {"usd": usdollars, "btc": bitcoin, "ebook": ebook}
+	data = {"data": save_tab}
 	json.dump(data, file)
 	file.close()
 
-def load_data():
+def load_data(qtty):
+	print(qtty)
 	try:
 		file = open("save.json", "r")
 	except:
-		save(0, 0, 0)
-		return (0, 0, 0)
+		save([0] * qtty)
+		return ([0] * qtty)
 	else:
 		data = json.load(file)
 		file.close()
-		if len(data.items()) != 3:
-			save(0, 0, 0)
-		return (data["usd"], data["btc"], data["ebook"])
+		ret = []
+		for saved_item in data.items():
+			ret.append(saved_item[1])
+		if len(ret) != qtty:
+			save([0] * qtty)
+		print(ret[0])
+		return (ret[0])

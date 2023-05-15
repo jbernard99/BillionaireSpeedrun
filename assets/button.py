@@ -1,5 +1,5 @@
 import pygame
-from presets import *
+from assets.presets import *
 
 class Button:
 	def __init__(self, x, y, width, height, color, text, display):
@@ -20,7 +20,7 @@ class Button:
 			color = (100, 100, 100)
 		pygame.draw.rect(self.display, color, self.rect)
 
-		text = MEDIUM_D_FONT.render(self.text, True, BLACK)
+		text = SMALL_D_FONT.render(self.text, True, BLACK)
 		text_rect = text.get_rect(center=self.rect.center)
 		self.display.blit(text, text_rect)
 
@@ -44,15 +44,16 @@ class Button:
 	def get_text(self, text):
 		self.text_surf = []
 		for txt in text:
-			self.text_surf.append(MEDIUM_D_FONT.render(txt, True, BLACK))
+			self.text_surf.append(SMALL_D_FONT.render(txt, True, BLACK))
 
 class Worker(Button):
-	def __init__(self, x, y, width, height, text, display, work):
-		Button.__init__(self, x, y, width, height, GREY, text, display)
+	def __init__(self, x, y, size, text, display, work):
+		y = y + (work[3] * (size[1] + 10))
+		Button.__init__(self, x, y, size[0], size[1], GREY, text, display)
 		self.base_cost = work[0]
 		self.gift = work[1]
 		self.type = work[2]
-		self.qtty = work[3]
+		self.qtty = 0
 		self.initial_text = text
 		self.last_gift = pygame.time.get_ticks()
 		self.set_cost()
@@ -64,7 +65,7 @@ class Worker(Button):
 		if (self.is_hovered):
 			color = (100, 100, 100)
 		pygame.draw.rect(self.display, color, self.rect)
-		text = MEDIUM_D_FONT.render(self.text, True, BLACK)
+		text = SMALL_D_FONT.render(self.text, True, BLACK)
 		text_rect = text.get_rect(center=self.rect.center)
 		self.display.blit(text, text_rect)
 
@@ -74,7 +75,10 @@ class Worker(Button):
 		self.set_new_text()
 
 	def set_cost(self):
-		self.cost = self.qtty * self.base_cost
+		if (self.qtty != 0):
+			self.cost = self.base_cost * (self.qtty + 1)
+		else:
+			self.cost = self.base_cost
 
 	def can_be_bought(self, money):
 		if (money > self.cost):
@@ -82,11 +86,11 @@ class Worker(Button):
 		return (0)
 	
 	def set_new_text(self):
-		self.text = self.initial_text + f" - {self.cost:.2f}"
+		self.text = f"{self.qtty} - " + self.initial_text + f" - {self.cost:.2f}"
 
 	def get_gift(self):
 		now = pygame.time.get_ticks()
-		if (now - self.last_gift >= 100):
+		if (now - self.last_gift >= 1000):
 			self.last_gift = now
 			return (self.qtty * self.gift)
 		return (0)
