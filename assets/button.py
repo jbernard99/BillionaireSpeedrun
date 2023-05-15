@@ -81,7 +81,7 @@ class Worker(Button):
 			self.cost = self.base_cost
 
 	def can_be_bought(self, money):
-		if (money > self.cost):
+		if (money >= self.cost):
 			return (1)
 		return (0)
 	
