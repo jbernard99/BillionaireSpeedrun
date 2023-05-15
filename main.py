@@ -10,7 +10,7 @@ while True:
 	mouse_pressed = pygame.mouse.get_pressed()[0]
 
 	#Update
-	game.draw(mouse_pos)
+	game.draw(mouse_pos, mouse_pressed)
 
 	#Limit FPS
 	game.CLOCK.tick(60)

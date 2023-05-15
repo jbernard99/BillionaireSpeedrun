@@ -1,8 +1,8 @@
 import json
 
-def save(usdollars, bitcoin):
+def save(usdollars, bitcoin, ebook):
 	file = open("save.json", "w")
-	data = {"usd": usdollars, "btc": bitcoin}
+	data = {"usd": usdollars, "btc": bitcoin, "ebook": ebook}
 	json.dump(data, file)
 	file.close()
 
@@ -10,9 +10,11 @@ def load_data():
 	try:
 		file = open("save.json", "r")
 	except:
-		save(0, 0)
-		return (0, 0)
+		save(0, 0, 0)
+		return (0, 0, 0)
 	else:
 		data = json.load(file)
 		file.close()
-		return (data["usd"], data["btc"])
+		if len(data.items()) != 3:
+			save(0, 0, 0)
+		return (data["usd"], data["btc"], data["ebook"])
