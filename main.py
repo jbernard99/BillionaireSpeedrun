@@ -1,5 +1,5 @@
 from game import *
-from presets import *
+from assets.presets import *
 import pygame
 
 game = Game()

@@ -34,6 +34,7 @@ class Game:
 		self.workers = []
 		self.workers.append(Worker(5, 30, W_SIZES, EBOOK, self.SCREEN, [10, 0.01, "USD", 1]))
 		self.workers.append(Worker(5, 30, W_SIZES, INSTA, self.SCREEN, [25, 0.10, "USD", 2]))
+		self.workers.append(Worker(5, 30, W_SIZES, BTCMINER, self.SCREEN, [250, 0.00005, "BTC", 3]))
 
 	def draw(self, mouse_pos, mouse_click):
 		self.SCREEN.fill(WHITE)
@@ -60,6 +61,8 @@ class Game:
 		for worker in self.workers:
 			if worker.type == "USD":
 				self.usd += worker.get_gift()
+			elif worker.type == "BTC":
+				self.btc += worker.get_gift()
 
 	def save_game(self):
 		data = [self.usd, self.btc]
