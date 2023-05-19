@@ -1,3 +1,5 @@
 save.json
 .venv
 .DS_Store
+save.pickle
+__pycache__

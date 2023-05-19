@@ -24,8 +24,7 @@ class Button:
 		text_rect = text.get_rect(center=self.rect.center)
 		self.display.blit(text, text_rect)
 
-	def is_cooldowned(self):
-		now = pygame.time.get_ticks()
+	def is_cooldowned(self, now):
 		if self.is_hovered and self.is_clicked:
 			if (now - self.last >= self.cooldown):
 				self.last = now
@@ -47,50 +46,22 @@ class Button:
 			self.text_surf.append(SMALL_D_FONT.render(txt, True, BLACK))
 
 class Worker(Button):
-	def __init__(self, x, y, size, text, display, work):
-		y = y + (work[3] * (size[1] + 10))
+	def __init__(self, x, y, size, text, display, id, name):
+		y = y + (id * (size[1] + 10))
 		Button.__init__(self, x, y, size[0], size[1], GREY, text, display)
-		self.base_cost = work[0]
-		self.gift = work[1]
-		self.type = work[2]
-		self.qtty = 0
+		self.name = name
 		self.initial_text = text
-		self.last_gift = pygame.time.get_ticks()
-		self.set_cost()
-		self.set_new_text()
-	
-	def draw(self, mouse_pos, mouse_click):
+
+	def draw(self, mouse_pos, mouse_click, data):
 		self.update(mouse_pos, mouse_click)
 		color = self.color
 		if (self.is_hovered):
 			color = (100, 100, 100)
+		self.set_new_text(data)
 		pygame.draw.rect(self.display, color, self.rect)
 		text = SMALL_D_FONT.render(self.text, True, BLACK)
 		text_rect = text.get_rect(center=self.rect.center)
 		self.display.blit(text, text_rect)
 
-	def buy(self):
-		self.qtty += 1
-		self.set_cost()
-		self.set_new_text()
-
-	def set_cost(self):
-		if (self.qtty != 0):
-			self.cost = self.base_cost * (self.qtty + 1)
-		else:
-			self.cost = self.base_cost
-
-	def can_be_bought(self, money):
-		if (money >= self.cost):
-			return (1)
-		return (0)
-	
-	def set_new_text(self):
-		self.text = f"{self.qtty} - " + self.initial_text + f" - {self.cost:.2f}"
-
-	def get_gift(self):
-		now = pygame.time.get_ticks()
-		if (now - self.last_gift >= 1000):
-			self.last_gift = now
-			return (self.qtty * self.gift)
-		return (0)
+	def set_new_text(self, data):
+		self.text = f"{data[0]} - " + self.initial_text + f" - {data[1]:.2f}"
