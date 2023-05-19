@@ -9,6 +9,8 @@ class Bank():
 			"ebook": {"cost": 10, "value": 0.05, "type": "USD", "quantity": 0, "text": EBOOK},
 			"instagram": {"cost": 25, "value": 0.25, "type": "USD", "quantity": 0, "text": INSTA},
 			"asicminer": {"cost": 200, "value": 0.00005, "type": "BTC", "quantity": 0, "text": BTCMINER},
+			"prodplace": {"cost": 150, "value": 1.5, "type": "USD", "quantity": 0, "text": PRODPLACE},
+			"cokerun": {"cost": 3000, "value": 100, "type": "USD", "quantity": 0, "text": COKERUN}
 		}
 		self.last_payout = 0
 

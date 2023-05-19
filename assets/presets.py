@@ -21,5 +21,7 @@ GEEKSQUAD 	= "Work at GeekSquad(Get $$$)"
 EBOOK 		= "Write and ebook using ChatGPT"
 INSTA		= "Make a AI Art Instagram account"
 BTCMINER	= "Buy a Bitcoin ASIC miner"
+PRODPLACE	= "Use an AI to market a product"
+COKERUN		= "Buy a coke run from a friend"
 
 W_SIZES = (550, 75)
